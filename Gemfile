@@ -13,3 +13,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
 end
+
+gem "json", "~> 1.8"
+gem "buftok", "~> 0.3.0"
+gem "simple_oauth", "~> 0.3.1"
