@@ -6,6 +6,7 @@ gem 'twitter'
 gem 'dotenv'
 gem 'hpricot'
 gem 'rake'
+gem 'json'
 
 group :test do
   gem 'minitest'
