@@ -10,6 +10,9 @@ CutePetsDenver Twitter feed: [https://twitter.com/CutePetsDenver](https://twitte
 
 ![https://twitter.com/CutePetsDenver](http://i.imgur.com/TMKG80L.png)
 
+### Deployed Bots
+* [CutePetsMiami](https://twitter.com/CutePetsMiami)
+
 ## Get Your Own!
 We've tried to make this as simple as possible. You'll be setting up a few _free_ online accounts, connecting them together, then you'll get your very own CutePets twitter bot. Its painless and takes about an hour. Lets go.
 
@@ -76,19 +79,20 @@ Great work. Now, tell us which city you made a cutepets bot for. We do this by s
 4. Edit the where.geojson file using [this link](https://github.com/codeforamerica/CutePets/edit/master/where.geojson).
 5. Add in your twitter bot's name and location using the format below. Note that the negative longitude goes first. Be sure to have that comma at the very end too.
 ```
+        {
+		"type": "Feature",
+		"properties":
 		{
-			"type": "Feature",
-			"properties":
-			{
-				"twitter" : "http://twitter.com/CutePetsAdamsCo"
-			},
-			"geometry":
-			{
-				"type": "Point",
-				"coordinates": [ -104.871902 , 39.891651 ]
-			}
+			"twitter" : "[http://twitter.com/CutePetsAdamsCo](http://twitter.com/CutePetsAdamsCo)"
 		},
+		"geometry":
+		{
+			"type": "Point",
+			"coordinates": [ -104.871902 , 39.891651 ]
+		}
+	},
 ```
 6. Click "Propose Changes" at the bottom of the page.
 7. Click "Create Pull Request"
 8. That's it! Thanks!
+
