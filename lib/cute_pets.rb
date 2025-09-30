@@ -11,7 +11,7 @@ module CutePets
     if ENV.fetch('pet_datasource').downcase == 'petfinder'
       pet = PetFetcher.get_petfinder_pet
     else
-      pet = PetFetcher.get_petharbor_pet
+      pet = PetFetcher.get_24petconnect_pet
     end
     if pet
       message = TweetGenerator.create_message(pet[:name], pet[:description], pet[:link])
