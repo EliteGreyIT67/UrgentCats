@@ -26,13 +26,12 @@ We've tried to make this as simple as possible. You'll be setting up a few _free
 #### Requirements
 This service requires a credit card to get set up. This card will **NOT** be charged.
 
-#### Petharbor
-We're scraping info from Petharbor to make our Twitter bot.
+#### 24petconnect
+We're scraping info from 24petconnect to make our Twitter bot.
 
-1. Search on [petharbor.com](http://www.petharbor.com) for a shelter in your town.
-2. Find the petharbor shelter id. The shelter id can be found near the end of the url, before the pet id, when clicking on the short link for a pet through petharbor.com. i.e. the shelter id in [http://www.petharbor.com/site.asp?ID=69155](http://www.petharbor.com/site.asp?ID=69155) is `69155`.
-3. Figure out which pet types your shelter has. Do a search on [petharbor.com](http://www.petharbor.com) narrowed down by your shelter. It should be `cat` `dog` or `others`.
-4. We'll need this info in a few minutes, keep it around.
+1.  Go to [24petconnect.com](https://24petconnect.com/) to find a shelter in your town.
+2.  The shelter ID is in the URL. For example, in `https://24petconnect.com/MIAD`, the shelter ID is `MIAD`.
+3.  We'll need this info in a few minutes, keep it around.
 
 
 #### Twitter
@@ -52,14 +51,14 @@ First we'll make a new twitter account, then we'll set up the 'bot' side of thin
 10. Good work so far. We're going to need all of these values soon, so keep this window open or write them down.
 
 #### Heroku
-This is where we'll turn on a free rented computer in the sky. It will run the code that grabs the info about animals from Petharbor, then tells Twitter to tweet about them.
+This is where we'll turn on a free rented computer in the sky. It will run the code that grabs the info about animals from 24petconnect, then tells Twitter to tweet about them.
 
 1. Create a [Heroku account](https://id.heroku.com/signup/www-header)
 2. Confirm the email they send you.
 3. Cick here -> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 4. Give your new app a unique name. Try the same name as your Twitter account.
 5. Enter in the Twitter values
-6. Enter in the Petharbor values
+6. Enter in the 24petconnect values
 7. Enter in your credit card info. You will **NOT** be charged.
 8. Click on "Manage App"
 9. Click on "Heroku Scheduler"
