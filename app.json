@@ -19,17 +19,13 @@
     "access_token_secret": {
       "description": "Your Twitter access token secret goes here"
     },
-    "petharbor_shelter_id": {
-      "description": "The id of the pet harbpr shelter",
+    "twenty_four_pet_connect_shelter_id": {
+      "description": "The id of the 24petconnect shelter",
       "value": "MIAD"
     },
-    "petharbor_pet_types": {
-      "description": "The types of pets to search for ('dog', 'cat', or 'others', separated by spaces)",
-      "value": "dog cat others"
-    },
     "pet_datasource": {
-      "description": "The pet data source (don't change this)",
-      "value": "petharbor"
+      "description": "The pet data source ('petfinder' or '24petconnect')",
+      "value": "24petconnect"
     }
   },
   "addons": [
@@ -37,4 +33,3 @@
   ],
   "success_url" : "https://scheduler.heroku.com/dashboard"
 }
-
