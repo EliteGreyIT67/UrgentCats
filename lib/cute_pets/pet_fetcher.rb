@@ -41,39 +41,41 @@ module PetFetcher
     end
   end
 
-  def get_petharbor_pet()
-    uri = URI('http://www.petharbor.com/petoftheday.asp')
-
-    params = {
-      shelterlist: "\'#{get_petharbor_shelter_id}\'",
-      type: get_petharbor_pet_type,
-      availableonly: '1',
-      showstat: '1',
-      source: 'results'
-    }
-    uri.query = URI.encode_www_form(params)
+  def get_24petconnect_pet()
+    shelter_id = get_24petconnect_shelter_id
+    uri = URI("https://24petconnect.com/#{shelter_id}/")
     response = Net::HTTP.get_response(uri)
-    if response.kind_of? Net::HTTPSuccess
-      # The html response comes wrapped in some js :(
-      response_html = response.body.gsub(/^document.write\s+\(\"/, '')
-      response_html = response_html.gsub(/\"\);/, '')
 
-      doc = Hpricot(response_html)
-      pet_url = doc.at('//a').attributes['href']
-      pet_url = pet_url.gsub('\"', '').gsub('\\', '')
-      pet_pic_html = doc.at('//a').inner_html
-      pet_pic_url = pet_pic_html.match(/SRC=\\\"(?<url>.+)\\\"\s+border/)['url']
-      table_cols = doc.search('//td')
-      name = table_cols[1].inner_text.match(/^(?<name>\w+)\s+/)['name'].capitalize
-      description = table_cols[3].inner_text.downcase
-      {
-        pic:   pet_pic_url,
-        link:  pet_url,
-        name:  name,
-        description: description
-      }
+    if response.kind_of? Net::HTTPSuccess
+      doc = Hpricot(response.body)
+      # Find all the pet containers; you might need to adjust the selector
+      # based on the actual HTML of the site. I'm assuming a structure here.
+      pets = doc.search('//div[@class="animal-card"]') # This selector is a guess
+      random_pet_html = pets.sample
+
+      if random_pet_html
+        pet_name_element = random_pet_html.at('//h3[@class="animal-name"]') # guess
+        pet_description_element = random_pet_html.at('//p[@class="animal-description"]') # guess
+        pet_link_element = random_pet_html.at('//a[@class="animal-link"]') # guess
+        pet_pic_element = random_pet_html.at('//img[@class="animal-image"]') # guess
+
+
+        name = pet_name_element ? pet_name_element.inner_text.strip : "A cute pet"
+        description = pet_description_element ? pet_description_element.inner_text.strip : "a very good pet."
+        link = pet_link_element ? "https://24petconnect.com" + pet_link_element['href'] : "https://24petconnect.com/#{shelter_id}"
+        pic = pet_pic_element ? pet_pic_element['src'] : "" # Provide a default image if none is found
+
+        {
+          pic:   pic,
+          link:  link,
+          name:  name.capitalize,
+          description: description.downcase
+        }
+      else
+        raise "Couldn't find any pets on the page."
+      end
     else
-      raise 'PetHarbor request failed'
+      raise '24petconnect.com request failed'
     end
   end
 
@@ -81,10 +83,6 @@ private
 
   def get_petfinder_sex(sex_abbreviation)
     sex_abbreviation.downcase == 'f' ? 'female' : 'male'
-  end
-
-  def get_petharbor_pet_type
-    ENV.fetch('petharbor_pet_types').split.sample
   end
 
   PETFINDER_ADJECTIVES = {
@@ -120,16 +118,12 @@ private
     end
   end
 
-  def get_petharbor_sex(html_text)
-    html_text =~ /female/i ? 'female' : 'male'
-  end
-
   def get_petfinder_shelter_id
     get_shelter_id(ENV.fetch('petfinder_shelter_id'))
   end
 
-  def get_petharbor_shelter_id
-    get_shelter_id(ENV.fetch('petharbor_shelter_id'))
+  def get_24petconnect_shelter_id
+    get_shelter_id(ENV.fetch('twenty_four_pet_connect_shelter_id'))
   end
 
   def get_shelter_id(id)
