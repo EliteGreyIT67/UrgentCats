@@ -21,9 +21,9 @@ describe 'CutePets' do
       end
     end
 
-    it 'fetches pet harbor data when the env var datasource is set to petharbor' do
-      ENV.stub :fetch, 'petharbor' do
-        PetFetcher.stub(:get_petharbor_pet, @pet_hash) do
+    it 'fetches 24petconnect data when the env var datasource is set to 24petconnect' do
+      ENV.stub :fetch, '24petconnect' do
+        PetFetcher.stub(:get_24petconnect_pet, @pet_hash) do
           TweetGenerator.stub(:tweet, nil, [String, String]) do
             CutePets.post_pet
           end
